@@ -2,3 +2,5 @@
 .metadata/
 .tooling/
 .tooling-apps-cache/
+
+mule-artifact.secrets
