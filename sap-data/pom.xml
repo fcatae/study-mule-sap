@@ -17,6 +17,7 @@
     <properties>
         <sap.connector.version>4.0.0</sap.connector.version>
         <mule.apikit.version>1.1.0</mule.apikit.version>
+    <mule.maven.plugin.version>3.2.7</mule.maven.plugin.version>
     </properties>
     <build>
         <plugins>
@@ -28,7 +29,18 @@
                 <configuration>
                     <classifier>mule-application</classifier>
                     <sharedLibraries>
-                        <!-- Please Add shared SAP libraries -->
+                        <sharedLibrary>
+                            <groupId>com.sap.conn.jco</groupId>
+                            <artifactId>com.sap.conn.jco.sapjco3</artifactId>
+                        </sharedLibrary>
+                        <sharedLibrary>
+                            <groupId>com.sap.conn.idoc</groupId>
+                            <artifactId>com.sap.conn.idoc.sapidoc3</artifactId>
+                        </sharedLibrary>
+                        <sharedLibrary>
+                            <groupId>com.sap.conn.jco</groupId>
+                            <artifactId>com.sap.conn.jco.libsapjco3</artifactId>
+                        </sharedLibrary>
                     </sharedLibraries>
                 </configuration>
             </plugin>
@@ -61,6 +73,28 @@
             <classifier>mule-plugin</classifier>
         </dependency>
         <!-- Please Add dependencies for SAP libraries -->
+        <dependency>
+            <groupId>com.sap.conn.jco</groupId>
+            <artifactId>com.sap.conn.jco.sapjco3</artifactId>
+            <version>3.0.19</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.conn.idoc</groupId>
+            <artifactId>com.sap.conn.idoc.sapidoc3</artifactId>
+            <version>3.0.19</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.conn.jco</groupId>
+            <artifactId>com.sap.conn.jco.libsapjco3</artifactId>
+            <version>3.0.19</version>
+            <classifier>external-library</classifier>
+            <!-- for Mac -->
+            <type>jnilib</type> 
+            <!-- for Windows -->
+            <!-- <type>dll</type> -->
+            <!-- for Linux/CloudHub -->
+            <!-- <type>so</type> -->
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
