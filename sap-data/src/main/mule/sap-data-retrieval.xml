@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
     <sap:outbound-config name="SAP_Outbound" doc:name="SAP Outbound" doc:id="fdc3a8d0-03ca-4cab-bdb8-697ef530c6a5" >
 		<sap:simple-connection-provider-connection applicationServerHost="${sap.jco.ashost}" username="${sap.jco.user}" password="${sap.jco.passwd}" systemNumber="${sap.jco.sysnr}" client="${sap.jco.client}" language="${sap.jco.lang}" />
 	</sap:outbound-config>
-	<configuration-properties doc:name="Configuration properties" doc:id="883e069f-4920-4ad9-96e4-af1cc03c2de5" file="mule-artifact.secrets" />
+	<configuration-properties doc:name="Configuration properties" doc:id="883e069f-4920-4ad9-96e4-af1cc03c2de5" file="mule-artifact.secrets.properties" />
 	<flow name="sap-api-main">
         <http:listener config-ref="sap-api-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">

@@ -3,4 +3,4 @@
 .tooling/
 .tooling-apps-cache/
 
-mule-artifact.secrets
+mule-artifact.secrets.properties

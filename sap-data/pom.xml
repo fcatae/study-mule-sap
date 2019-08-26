@@ -41,6 +41,10 @@
                             <groupId>com.sap.conn.jco</groupId>
                             <artifactId>com.sap.conn.jco.libsapjco3</artifactId>
                         </sharedLibrary>
+                    <sharedLibrary>
+                            <groupId>com.sap.conn.jco</groupId>
+                            <artifactId>libsapjco3</artifactId>
+                        </sharedLibrary>
                     </sharedLibraries>
                 </configuration>
             </plugin>
@@ -94,6 +98,13 @@
             <!-- <type>dll</type> -->
             <!-- for Linux/CloudHub -->
             <!-- <type>so</type> -->
+        </dependency>
+    	<dependency>
+            <groupId>com.sap.conn.jco</groupId>
+            <artifactId>libsapjco3</artifactId>
+            <version>3.0.19</version>
+            <classifier>external-library</classifier>
+            <type>jnilib</type>
         </dependency>
     </dependencies>
     <repositories>
