@@ -131,6 +131,9 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\customers:sap-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="803f8e42-7555-457c-b40c-d634a5088943" name="flow-customer-getlist"/>
+    </flow>
+    <flow name="flow-customer-find" doc:id="ec2147ea-98a4-40a1-9380-d18c3f7a2586" >
 		<ee:transform doc:name="Transform Map to Xml BAPI_CUSTOMER_FIND" doc:id="a453b8af-8e46-4195-98fb-b9dc649f4caa">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -157,7 +160,7 @@ output application/xml
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<sap:execute-synchronous-remote-function-call doc:name="Get Customers" doc:id="60c6d210-6a3d-48e6-8643-c04842a5c37a" config-ref="SAP_Outbound" key="BAPI_CUSTOMER_FIND"/>
+		<sap:execute-synchronous-remote-function-call doc:name="Get Customers" doc:id="60c6d210-6a3d-48e6-8643-c04842a5c37a" config-ref="SAP_Outbound" key="BAPI_CUSTOMER_FIND" />
 		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="fa2006bd-6755-42d8-8f54-8d7547781f8f" doc:name="Transform Xml BAPI_CUSTOMER_FIND To JSON">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
@@ -167,8 +170,40 @@ customers: payload."BAPI_CUSTOMER_FIND".tables.RESULT_TAB.*row
 ]]></ee:set-payload>
             </ee:message>
         </ee:transform>
-    </flow>
-    <flow name="get:\materials:sap-api-config">
+	</flow>
+	<flow name="flow-customer-getlist" doc:id="aa6a54e6-8e0e-4d29-b53a-a1dff9205b7e" >
+		<ee:transform doc:name="Copy_of_Set XML input" doc:id="c162218f-3f9c-4247-b459-3b146b91a252">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_CUSTOMER_GETLIST": {
+    "import": {
+      "MAXROWS": "5"
+    },
+    "tables": {
+      "IDRANGE": {
+        "row": {
+          "SIGN": "I",
+          "OPTION": "CP",
+          "LOW": "*",
+          "HIGH": null
+        }
+      }
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<sap:execute-synchronous-remote-function-call key="BAPI_CUSTOMER_GETLIST" doc:name="Copy_of_Query customers from SAP" doc:id="6aea2612-55a3-4757-a2b5-d870f16d4aa4" config-ref="SAP_Outbound" />
+		<ee:transform doc:name="Transform Message" doc:id="af2dd1e4-3d3d-44ff-9270-712db7b45dea">
+			<ee:message>
+				<ee:set-payload><![CDATA[payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="get:\materials:sap-api-config">
         <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="60143bc5-eb62-4fe6-8591-cda0cfa8c39b" doc:name="Transform Map to Xml BAPI_MATERIAL_GETLIST">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
